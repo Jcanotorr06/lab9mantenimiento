@@ -82,6 +82,42 @@
             /* $this->assertCount(8, $calculadora->generarArreglo()); */
             $this->assertNotEmpty($calculadora->generarArreglo());
         }
+        
+        public function testCapturarEntradasPermutacion(){
+
+            $stub = $this->createMock('Calculadora');
+            $stub->method('capturarEntradasPermutacion')->willReturn(array(5,3));
+
+            $this->assertSame(array(5,3), $stub->capturarEntradasPermutacion());
+        }
+
+        public function testCalcularPermutacion(){
+            $mock = $this->getMockBuilder('Calculadora')->onlyMethods(array('calcularFactorial'))->getMock();
+
+            $mock->expects($this->exactly(2))->method('calcularFactorial')->will($this->onConsecutiveCalls(120, 6));
+
+            $this->assertSame(20, $mock->calcularPermutacion(5,2));
+        }
+
+        public function testComprobarLlamada(){
+            $mock = $this->getMockBuilder('Calculadora')->onlyMethods(array('calcularFactorial'))->getMock();
+
+            /* $mock->expects($this->exactly(2))->method('calcularFactorial')->withConsecutive([5],[3]);
+
+            $mock->calcularFactorial(5);
+            $mock->calcularFactorial(3); */
+
+            /* $mock->expects($this->once())->method('calcularFactorial')->with(5)->will($this->returnValue(120));
+            $res = $mock->calcularFactorial(5);
+            $this->assertEquals(120, $res); */
+            /* $mock->calcularFactorial(3); */
+            /* $this->assertEquals(110, $res); */
+
+            $mock->expects($this->exactly(2))->method('calcularFactorial')->withConsecutive([5],[3])->will($this->onConsecutiveCalls(120,6));
+            $this->assertEquals(120, $mock->calcularFactorial(5));
+            $this->assertEquals(6, $mock->calcularFactorial(3));
+
+        }
 
     }
 ?>

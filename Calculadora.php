@@ -24,5 +24,18 @@
             }
             return $arreglo;
         }
+
+        function capturarEntradasPermutacion(){
+            
+        }
+
+        function calcularFactorial($numero){}
+
+        function calcularPermutacion($n, $r){
+            $num = $this->calcularFactorial($n);
+            $den = $this->calcularFactorial($n-$r);
+
+            return $num / $den;
+        }
     }
 ?>
